@@ -1,0 +1,59 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;1,300&display=swap");
+
+
+body {
+  background: #F5F6F8; 
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.content {
+  padding-top: 70px;
+  /* Adjust the padding-top value as needed to avoid overlap with the Navbar */
+}
+
+/* CustomPagination.css */
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+}
+
+.pagination-item {
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.active {
+  color: #039BF0;  
+}
+
+/* Style "Previous" and "Next" links */
+.pagination .previous,
+.pagination .next {
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+/* Apply different styles for "Previous" and "Next" when the active page is 1 */
+.pagination .previous:not(.active) {
+  color: #4a4a4a;
+}
+
+.pagination .next:not(.active) {
+  color: #039BF0;
+}
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
