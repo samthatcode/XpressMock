@@ -87,13 +87,13 @@ const Dashboard = () => {
         {/* Sidebar */}
         <aside className="bg-white text-white top-0 left-0 transition-all duration-300 p-3 shadow-md">
           <div className="p-4 flex flex-col items-center justify-between">
-            <div
+            <Link to="/"
               onClick={toggleSidebar}
               className="text-3xl text-[#039BF0] cursor-pointer"
               style={{ fontFamily: 'Chiq Pro Bold, sans-serif' }}
             >
               Xpress
-            </div>
+            </Link>
           </div>
           <div className="mt-3">
             <div
