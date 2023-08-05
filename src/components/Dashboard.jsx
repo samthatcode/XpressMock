@@ -84,7 +84,7 @@ const Dashboard = () => {
   return (
     <>
       <div className="flex">
-        {/* Sidebar */}
+        {/* Sidebar .*/}
         <aside className="bg-white text-white top-0 left-0 transition-all duration-300 p-3 shadow-md">
           <div className="p-4 flex flex-col items-center justify-between">
             <Link to="/"
