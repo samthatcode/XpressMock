@@ -31,6 +31,7 @@ body {
 .pagination-item {
   margin: 0 5px;
   cursor: pointer;
+  font-size: 11px;
 }
 
 .active {
@@ -42,6 +43,7 @@ body {
 .pagination .next {
   margin: 0 5px;
   cursor: pointer;
+  font-size: 12px;
 }
 
 /* Apply different styles for "Previous" and "Next" when the active page is 1 */
