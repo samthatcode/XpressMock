@@ -1,24 +1,20 @@
 import React from "react";
 import { ToastContainer } from "react-toastify";
 import { Route, Routes } from "react-router-dom";
-import { Dashboard, Home, Navbar, Pending, SignIn, Signup } from "./components";
-
+import { Dashboard, Home, Pending, SignIn, Signup } from "./components";
 
 const App = () => {
   return (
     <>
+      <ToastContainer />
       <div>
-        <ToastContainer />
-        {/* <Navbar /> */}
-        {/* <Home /> */}
-        <div className="content">
-          <Routes>
-            <Route path="/login" element={<SignIn />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/pending" element={<Pending />} />
-          </Routes>
-        </div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<SignIn />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/pending" element={<Pending />} />
+        </Routes>
       </div>
     </>
   );

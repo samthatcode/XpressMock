@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { AiOutlineCloudDownload } from "react-icons/ai";
+import { TiAttachmentOutline } from "react-icons/ti";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -36,12 +38,6 @@ const Signup = () => {
   const handleNext = () => {
     if (step < steps.length) {
       setStep(step + 1);
-    }
-  };
-
-  const handlePrev = () => {
-    if (step > 1) {
-      setStep(step - 1);
     }
   };
 
@@ -149,16 +145,19 @@ const Signup = () => {
           <h2 className="md:text-left text-center text-xl font-bold text-[#039BF0]">
             Welcome to Xpress Rewards
           </h2>
-          <p className="text-[12px]">
+          <p className="text-[12px] text-[#606060]">
             Please complete the form below to get started
           </p>
           <form className="mt-10" onSubmit={handleSubmit}>
             {step === 1 && (
               <div className="">
-                <h1 className="text-[#039BF0]">Bussiness Information</h1>
+                <h1 className="text-[#039BF0] mb-4">Bussiness Information</h1>
                 <div className="mb-4">
-                  <label className="block font-medium" htmlFor="businessName">
-                    Business Name:
+                  <label
+                    className="block font-medium text-[#1A1619] text-[14px]"
+                    htmlFor="businessName"
+                  >
+                    Business Name
                   </label>
                   <input
                     className="w-full border border-gray-300 rounded-md py-2 px-3 capitalize"
@@ -170,8 +169,11 @@ const Signup = () => {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block font-medium" htmlFor="businessEmail">
-                    Business Email Address:
+                  <label
+                    className="block font-medium text-[#1A1619] text-[14px]"
+                    htmlFor="businessEmail"
+                  >
+                    Business Email Address
                   </label>
                   <input
                     className="w-full border border-gray-300 rounded-md py-2 px-3 "
@@ -183,12 +185,16 @@ const Signup = () => {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block font-medium" htmlFor="businessPhone">
-                    Business Phone Number:
+                  <label
+                    className="block font-medium text-[#1A1619] text-[14px]"
+                    htmlFor="businessPhone"
+                  >
+                    Business Phone Number
                   </label>
                   <input
                     className="w-full border border-gray-300 rounded-md py-2 px-3 "
-                    type="text"
+                    type="number"
+                    inputMode="numeric"
                     id="businessPhone"
                     name="businessPhone"
                     value={formData.businessPhone}
@@ -197,19 +203,19 @@ const Signup = () => {
                 </div>
                 <div className="mb-4">
                   <label
-                    className="block font-medium"
+                    className="block font-medium text-[#1A1619] text-[14px]"
                     htmlFor="businessCategory"
                   >
-                    Business Category:
+                    Business Category
                   </label>
                   <select
-                    className="w-full border border-gray-300 rounded-md py-2 px-3 capitalize"
+                    className="w-full border border-gray-300 bg-white rounded-md py-2 px-3 capitalize"
                     id="businessCategory"
                     name="businessCategory"
                     value={formData.businessCategory}
                     onChange={handleFormChange}
                   >
-                    <option value="">Select a category</option>
+                    <option value=""></option>
                     <option value="Technology">Technology</option>
                     <option value="Healthcare">Healthcare</option>
                     <option value="Finance">Finance</option>
@@ -217,12 +223,16 @@ const Signup = () => {
                   </select>
                 </div>
                 <div className="mb-4">
-                  <label className="block font-medium" htmlFor="accountNo">
-                    Account No:
+                  <label
+                    className="block font-medium text-[#1A1619] text-[14px]"
+                    htmlFor="accountNo"
+                  >
+                    Account No
                   </label>
                   <input
                     className="w-full border border-gray-300 rounded-md py-2 px-3"
                     type="number"
+                    inputMode="numeric"
                     id="accountNo"
                     name="accountNo"
                     value={formData.accountNo}
@@ -230,30 +240,54 @@ const Signup = () => {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block font-medium" htmlFor="image">
-                    Image(Logo):
+                  <label
+                    className="block font-medium text-[#1A1619] text-[14px]"
+                    htmlFor="image"
+                  >
+                    Image[Logo]
                   </label>
-                  <input
-                    type="file"
-                    id="image"
-                    name="image"
-                    accept="image/*"
-                    onChange={handleImageChange}
-                  />
+                  <div className="border-dotted border border-[#1A1619] rounded p-4 mt-2 flex items-center justify-center flex-col">
+                    <AiOutlineCloudDownload className="text-[#039BF0] text-3xl" />
+                    <p className="text-[#1A141F] text-[12px] mt-2">
+                      Drag here or click the button below to upload
+                    </p>
+                    <label
+                      htmlFor="image"
+                      className="cursor-pointer px-4 p-1 rounded mt-2 bg-[#039BF0] text-white"
+                    >
+                      <TiAttachmentOutline className="text-white text-[14px] inline-block mr-2" />
+                      Choose file
+                    </label>
+                    <p className="text-[14px] text-[#4B3A5A] mt-2">
+                      Maximum upload size: 10MB (.jpg)
+                    </p>
+                    <input
+                      type="file"
+                      id="image"
+                      name="image"
+                      accept="image/*"
+                      onChange={handleImageChange}
+                      className="hidden"
+                    />
+                  </div>
                 </div>
               </div>
             )}
             {step === 2 && (
               <div className="">
-                <h3 className="text-[#039BF0]">Business Address</h3>
+                <h3 className="text-[#039BF0] mb-4">Business Address</h3>
                 <div className="md:flex">
                   <div className="mb-4 md:w-1/2 md:pr-2">
-                    <label className="block font-medium" htmlFor="houseNumber">
-                      House Number:
+                    <label
+                      className="block font-medium text-[#1A1619] text-[14px]"
+                      htmlFor="houseNumber"
+                    >
+                      House Number
                     </label>
                     <input
-                      className="w-full border border-gray-300 rounded-md py-2 px-3 "
-                      type="text"
+                      className="w-[50%] border border-gray-300 rounded-md py-2 px-3"
+                      type="number"
+                      inputMode="numeric"
                       id="houseNumber"
                       name="houseNumber"
                       value={formData.houseNumber}
@@ -261,8 +295,11 @@ const Signup = () => {
                     />
                   </div>
                   <div className="mb-4 md:w-1/2 md:pl-2">
-                    <label className="block font-medium" htmlFor="street">
-                      Street:
+                    <label
+                      className="block font-medium text-[#1A1619] text-[14px]"
+                      htmlFor="street"
+                    >
+                      Street
                     </label>
                     <input
                       className="w-full border border-gray-300 rounded-md py-2 px-3 capitalize"
@@ -275,8 +312,11 @@ const Signup = () => {
                   </div>
                 </div>
                 <div className="mb-4">
-                  <label className="block font-medium" htmlFor="city">
-                    City:
+                  <label
+                    className="block font-medium text-[#1A1619] text-[14px]"
+                    htmlFor="city"
+                  >
+                    City
                   </label>
                   <input
                     className="w-full border border-gray-300 rounded-md py-2 px-3 capitalize"
@@ -288,28 +328,34 @@ const Signup = () => {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block font-medium" htmlFor="state">
-                    State:
+                  <label
+                    className="block font-medium text-[#1A1619] text-[14px]"
+                    htmlFor="state"
+                  >
+                    State
                   </label>
                   {/* Replace 'stateOptions' with API data for Nigerian states */}
                   <select
-                    className="w-full border border-gray-300 rounded-md py-2 px-3 capitalize"
+                    className="w-full border border-gray-300 bg-white rounded-md py-2 px-3 capitalize"
                     id="state"
                     name="state"
                     value={formData.state}
                     onChange={handleFormChange}
                   >
-                    <option value="">Select a state</option>
+                    <option value=""></option>
                     <option value="Lagos">Lagos</option>
                     <option value="Abuja">Abuja</option>
                     {/* Add more state options */}
                   </select>
                 </div>
 
-                <h3 className="text-[#039BF0]">Contact Person Information</h3>
+                <h3 className="text-[#039BF0] mb-4">Contact Person Information</h3>
                 <div className="mb-4">
-                  <label className="block font-medium" htmlFor="contactName">
-                    Contact Name:
+                  <label
+                    className="block font-medium text-[#1A1619] text-[14px]"
+                    htmlFor="contactName"
+                  >
+                    Contact Name
                   </label>
                   <input
                     className="w-full border border-gray-300 rounded-md py-2 px-3 capitalize"
@@ -321,12 +367,16 @@ const Signup = () => {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block font-medium" htmlFor="contactPhone">
-                    Contact Phone Number:
+                  <label
+                    className="block font-medium text-[#1A1619] text-[14px]"
+                    htmlFor="contactPhone"
+                  >
+                    Contact Phone Number
                   </label>
                   <input
                     className="w-full border border-gray-300 rounded-md py-2 px-3 capitalize"
                     type="number"
+                    inputMode="numeric"
                     id="contactPhone"
                     name="contactPhone"
                     value={formData.contactPhone}
@@ -334,8 +384,11 @@ const Signup = () => {
                   />
                 </div>
                 <div className="mb-4">
-                  <label className="block font-medium" htmlFor="contactEmail">
-                    Contact Email Address:
+                  <label
+                    className="block font-medium text-[#1A1619] text-[14px]"
+                    htmlFor="contactEmail"
+                  >
+                    Contact Email Address
                   </label>
                   <input
                     className="w-full border border-gray-300 rounded-md py-2 px-3 capitalize"
@@ -347,10 +400,13 @@ const Signup = () => {
                   />
                 </div>
 
-                <h3 className="text-[#039BF0]">Password</h3>
+                <h3 className="text-[#039BF0] mb-4">Password</h3>
                 <div className="mb-4">
-                  <label className="block font-medium" htmlFor="password">
-                    Password:
+                  <label
+                    className="block font-medium text-[#1A1619] text-[14px]"
+                    htmlFor="password"
+                  >
+                    Password
                   </label>
                   <div className="relative">
                     <input
@@ -364,18 +420,18 @@ const Signup = () => {
                     <button
                       onClick={handlePasswordToggle}
                       type="button"
-                      className="absolute right-3 top-2 text-gray-500"
+                      className="absolute right-3 top-3 text-gray-500"
                     >
-                       {formData.showPassword ? <FaEyeSlash /> : <FaEye />}
+                      {formData.showPassword ? <FaEyeSlash /> : <FaEye />}
                     </button>
                   </div>
                 </div>
                 <div className="mb-4">
                   <label
-                    className="block font-medium"
+                    className="block font-medium text-[#1A1619] text-[14px]"
                     htmlFor="confirmPassword"
                   >
-                    Confirm Password:
+                    Confirm Password
                   </label>
                   <div className="relative">
                     <input
@@ -389,9 +445,9 @@ const Signup = () => {
                     <button
                       onClick={handlePasswordToggle}
                       type="button"
-                      className="absolute right-3 top-2 text-gray-500"
+                      className="absolute right-3 top-3 text-gray-500"
                     >
-                       {formData.showPassword ? <FaEyeSlash /> : <FaEye />}
+                      {formData.showPassword ? <FaEyeSlash /> : <FaEye />}
                     </button>
                   </div>
                 </div>
@@ -399,19 +455,11 @@ const Signup = () => {
             )}
             <div className="mt-4">
               <div className="flex items-center">
-                {step > 1 && (
-                  <button
-                    className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mr-2"
-                    onClick={handlePrev}
-                  >
-                    Previous
-                  </button>
-                )}
                 {step < 2 ? (
                   <button
                     className={`${
                       step === 1 && !isStepOneValid() ? "opacity-50" : ""
-                    } bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded`}
+                    } bg-[#039BF0] text-white font-medium py-3 px-14 rounded`}
                     type="submit"
                     onClick={handleNext}
                     disabled={step === 1 && !isStepOneValid()}
@@ -422,7 +470,7 @@ const Signup = () => {
                   <button
                     className={`${
                       !isStepTwoValid() ? "opacity-50" : ""
-                    } bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded`}
+                    } bg-[#039BF0] text-white text-[14px] font-medium py-3 px-14 rounded`}
                     type="submit"
                     disabled={!isStepTwoValid()}
                   >
@@ -430,7 +478,7 @@ const Signup = () => {
                   </button>
                 )}
 
-                <div>
+                <div className="ml-2 text-[#808080] text-[14px]">
                   Step {step} of {steps.length}
                 </div>
               </div>

@@ -1,14 +1,12 @@
-import React from 'react'
-import Signup from './Signup'
-
+import React from "react";
+import Navbar from "./Navbar";
 
 const Home = () => {
   return (
-    <div className='mt-10'>
-        <Signup />
-        
+    <div>
+      <Navbar />
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

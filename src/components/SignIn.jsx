@@ -89,7 +89,7 @@ const SignIn = () => {
                 <button
                   onClick={handlePasswordToggle}
                   type="button"
-                  className="absolute right-3 top-2 text-gray-500"
+                  className="absolute right-3 top-3 text-gray-500"
                 >
                 {formData.showPassword ? <FaEyeSlash /> : <FaEye />}
                 </button>
@@ -103,7 +103,7 @@ const SignIn = () => {
             </div>
             <button
               type="submit"
-              className="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded"
+              className="w-full bg-[#039BF0] text-white font-medium py-2 px-4 rounded"
             >
               Sign In
             </button>
