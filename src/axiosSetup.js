@@ -15,7 +15,7 @@ mock.onPost('/login').reply((config) => {
 
   if (email === 'samthatcode@gmail.com' && password === 'sam@sam1') {
     const session = { token: 'mockToken' };
-    const user = { id: 1, name: 'User' };
+    const user = { id: 1, name: 'User', photo: 'sam.jpg' };
     
     return [200, { session, user }];
   } else {

@@ -1,9 +1,0 @@
-@font-face {
-    font-family: 'Chiq Pro';
-    src: local('Chiq Pro Bold'), local('Chiq-Pro-Bold'),
-        url('ChiqPro-Bold.woff2') format('woff2'),
-        url('ChiqPro-Bold.woff') format('woff'),
-        url('ChiqPro-Bold.ttf') format('truetype');
-    font-weight: 700;
-    font-style: normal;
-  }

@@ -1,7 +1,6 @@
 import axios from "../axiosSetup";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { sessionService } from "redux-react-session";
 import Navbar from "./Navbar";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
@@ -36,8 +35,10 @@ const SignIn = () => {
     console.log("Mock login formData:", formData);
     console.log("Mock login response data:", response.data);
 
-    sessionService.saveSession(response.data.session);
-    sessionService.saveUser(response.data.user);
+    // Save to local storage
+    localStorage.setItem("session", JSON.stringify(response.data.session));
+    localStorage.setItem("user", JSON.stringify(response.data.user));
+
     // Redirect to dashboard
     navigate("/dashboard");
   };
@@ -91,7 +92,7 @@ const SignIn = () => {
                   type="button"
                   className="absolute right-3 top-3 text-gray-500"
                 >
-                {formData.showPassword ? <FaEyeSlash /> : <FaEye />}
+                  {formData.showPassword ? <FaEyeSlash /> : <FaEye />}
                 </button>
                 <div className="flex items-center text-[12px]">
                   <p className="text-[#606060]">Forgot Password?</p>

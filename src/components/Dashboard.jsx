@@ -11,8 +11,7 @@ import { FaBell, FaChevronDown, FaSearch } from "react-icons/fa";
 import { BiMoney, BiRadioCircle } from 'react-icons/bi';
 import { Link } from "react-router-dom";
 import { AiOutlineTags } from "react-icons/ai";
-import xpressImage from '../assets/images/sam.jpg'
-import '../fonts/fonts.css'
+
 
 const Dashboard = () => {
   const itemsPerPageOptions = [10, 5, 15];
@@ -81,16 +80,18 @@ const Dashboard = () => {
     setItemsPerPage(Number(e.target.value));
   };
 
+
+
   return (
     <>
       <div className="flex">
         {/* Sidebar .*/}
         <aside className="bg-white text-white top-0 left-0 transition-all duration-300 p-3 shadow-md">
-          <div className="p-4 flex flex-col items-center justify-between">
+          <div className="p-3 flex flex-col items-center justify-between">
             <Link to="/"
               onClick={toggleSidebar}
-              className="text-3xl text-[#039BF0] cursor-pointer"
-              style={{ fontFamily: 'Chiq Pro Bold, sans-serif' }}
+              className="text-3xl text-[#039BF0] cursor-pointer uppercase font-bold"
+              style={{ fontFamily: 'Chiq Pro, sans-serif' }}
             >
               Xpress
             </Link>
@@ -138,7 +139,7 @@ const Dashboard = () => {
                   </div>
                 </div>
                 <img
-                  src={xpressImage}
+                  src={`/images/${JSON.parse(localStorage.getItem('user')).photo}`}
                   alt="Logo"
                   className="w-8 h-8 ml-4 rounded-full"
                 />

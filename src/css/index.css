@@ -1,5 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;400;500;600;0,700;1,400&family=Roboto:wght@100&display=swap');
 
+@font-face {
+    font-family: 'Chiq Pro';
+    src: local('Chiq Pro Bold'), local('Chiq-Pro-Bold'),
+        url('../fonts/ChiqPro-Bold.woff2') format('woff2'),
+        url('../fonts/ChiqPro-Bold.woff') format('woff'),
+        url('../fonts/ChiqPro-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+
 body {
   background: #F5F6F8;
   margin: 0;
