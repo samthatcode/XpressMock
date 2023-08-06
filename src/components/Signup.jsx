@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { AiOutlineCloudDownload } from "react-icons/ai";
 import { TiAttachmentOutline } from "react-icons/ti";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Pending from "./Pending";
@@ -28,12 +27,14 @@ const Signup = () => {
     password: "",
     confirmPassword: "",
     showPassword: false,
+    showConfirmPassword: false,
   });
   const [stepCompletion, setStepCompletion] = useState(
     Array(steps.length).fill(false)
   );
   const [showModal, setShowModal] = useState(false);
-  const navigate = useNavigate();
+  const [timeoutId, setTimeoutId] = useState(null);
+  const [fileName, setFileName] = useState("");
 
   const handleNext = () => {
     if (step < steps.length) {
@@ -55,6 +56,7 @@ const Signup = () => {
       ...prevData,
       image: file,
     }));
+    setFileName(file.name);
   };
 
   const completeStep = (stepIndex) => {
@@ -65,12 +67,13 @@ const Signup = () => {
     });
   };
 
-  const handlePasswordToggle = () => {
-    setFormData((prevData) => ({
-      ...prevData,
-      showPassword: !prevData.showPassword,
+  const handlePasswordToggle = (showField) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [showField]: !prevState[showField],
     }));
   };
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -269,6 +272,7 @@ const Signup = () => {
                       onChange={handleImageChange}
                       className="hidden"
                     />
+                    <p className="text-[12px]">{fileName}</p>
                   </div>
                 </div>
               </div>
@@ -349,7 +353,9 @@ const Signup = () => {
                   </select>
                 </div>
 
-                <h3 className="text-[#039BF0] mb-4">Contact Person Information</h3>
+                <h3 className="text-[#039BF0] mb-4">
+                  Contact Person Information
+                </h3>
                 <div className="mb-4">
                   <label
                     className="block font-medium text-[#1A1619] text-[14px]"
@@ -374,7 +380,7 @@ const Signup = () => {
                     Contact Phone Number
                   </label>
                   <input
-                    className="w-full border border-gray-300 rounded-md py-2 px-3 capitalize"
+                    className="w-full border border-gray-300 rounded-md py-2 px-3 "
                     type="number"
                     inputMode="numeric"
                     id="contactPhone"
@@ -391,7 +397,7 @@ const Signup = () => {
                     Contact Email Address
                   </label>
                   <input
-                    className="w-full border border-gray-300 rounded-md py-2 px-3 capitalize"
+                    className="w-full border border-gray-300 rounded-md py-2 px-3 "
                     type="email"
                     id="contactEmail"
                     name="contactEmail"
@@ -418,7 +424,7 @@ const Signup = () => {
                       onChange={handleFormChange}
                     />
                     <button
-                      onClick={handlePasswordToggle}
+                      onClick={() => handlePasswordToggle("showPassword")}
                       type="button"
                       className="absolute right-3 top-3 text-gray-500"
                     >
@@ -436,14 +442,34 @@ const Signup = () => {
                   <div className="relative">
                     <input
                       className="w-full border border-gray-300 rounded-md py-2 px-3 "
-                      type="password"
+                      type={formData.showConfirmPassword ? "text" : "password"}
                       id="confirmPassword"
                       name="confirmPassword"
                       value={formData.confirmPassword}
-                      onChange={handleFormChange}
+                      onChange={(e) => {
+                        handleFormChange(e);
+
+                        // Clear old timeout if it exists
+                        clearTimeout(timeoutId);
+
+                        // Set new timeout
+                        const newTimeoutId = setTimeout(() => {
+                          if (e.target.value !== formData.password) {
+                            toast.error(
+                              "Password and confirm password do not match"
+                            );
+                          } else {
+                            toast.success("Passwords match");
+                          }
+                        }, 1000); // One second delay
+
+                        setTimeoutId(newTimeoutId);
+                      }}
                     />
                     <button
-                      onClick={handlePasswordToggle}
+                      onClick={() =>
+                        handlePasswordToggle("showConfirmPassword")
+                      }
                       type="button"
                       className="absolute right-3 top-3 text-gray-500"
                     >
