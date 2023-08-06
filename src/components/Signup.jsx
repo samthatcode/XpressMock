@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Pending from "./Pending";
 import Navbar from "./Navbar";
+import validator from 'validator';
 
 const Signup = () => {
   const [step, setStep] = useState(1);
@@ -73,10 +74,18 @@ const Signup = () => {
       [showField]: !prevState[showField],
     }));
   };
-  
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+     // Validate email using validator.js
+     if (!validator.isEmail(formData.email)) {
+      toast.error('Please enter a valid email address.', {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 1000,
+      });
+      return;
+    }
 
     if (step === steps.length && isStepTwoValid()) {
       // Perform API call or submit data as needed
@@ -185,6 +194,7 @@ const Signup = () => {
                     name="businessEmail"
                     value={formData.businessEmail}
                     onChange={handleFormChange}
+                    required
                   />
                 </div>
                 <div className="mb-4">
@@ -251,7 +261,7 @@ const Signup = () => {
                   </label>
                   <div className="border-dotted border border-[#1A1619] rounded p-4 mt-2 flex items-center justify-center flex-col">
                     <AiOutlineCloudDownload className="text-[#039BF0] text-3xl" />
-                    <p className="text-[#1A141F] text-[12px] mt-2">
+                    <p className="text-[#1A141F] text-[12px] mt-2 text-center">
                       Drag here or click the button below to upload
                     </p>
                     <label
@@ -261,7 +271,7 @@ const Signup = () => {
                       <TiAttachmentOutline className="text-white text-[14px] inline-block mr-2" />
                       Choose file
                     </label>
-                    <p className="text-[14px] text-[#4B3A5A] mt-2">
+                    <p className="text-[14px] text-[#4B3A5A] mt-2 text-center">
                       Maximum upload size: 10MB (.jpg)
                     </p>
                     <input
@@ -272,7 +282,7 @@ const Signup = () => {
                       onChange={handleImageChange}
                       className="hidden"
                     />
-                    <p className="text-[12px]">{fileName}</p>
+                    <p className="text-[12px] text-center">{fileName}</p>
                   </div>
                 </div>
               </div>
@@ -403,6 +413,7 @@ const Signup = () => {
                     name="contactEmail"
                     value={formData.contactEmail}
                     onChange={handleFormChange}
+                    required
                   />
                 </div>
 

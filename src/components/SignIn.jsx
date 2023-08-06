@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SignIn = () => {
   const [formData, setFormData] = useState({
@@ -27,20 +29,37 @@ const SignIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Mock login (you can replace this with actual login authentication)
-    const response = await axios.post("/login", {
-      email: formData.email,
-      password: formData.password,
-    });
+    try {
+      const response = await axios.post("/login", {
+        email: formData.email,
+        password: formData.password,
+      });
 
-    console.log("Mock login formData:", formData);
-    console.log("Mock login response data:", response.data);
+      console.log("Mock login formData:", formData);
+      console.log("Mock login response data:", response.data);
+      console.log("Response:", response);
 
-    // Save to local storage
-    localStorage.setItem("session", JSON.stringify(response.data.session));
-    localStorage.setItem("user", JSON.stringify(response.data.user));
+      toast.success("Login Successful", {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 1000,
+      });
 
-    // Redirect to dashboard
-    navigate("/dashboard");
+      // Save to local storage
+      localStorage.setItem("session", JSON.stringify(response.data.session));
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+
+      // Redirect to dashboard
+      navigate("/dashboard");
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        toast.error("Incorrect Username or Password", {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 500,
+        });
+      } else {
+        toast.error("Oops!, Network error");
+      }
+    }
   };
 
   return (
@@ -69,6 +88,8 @@ const SignIn = () => {
                 value={formData.email}
                 onChange={handleChange}
                 className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              
               />
             </div>
             <div className="mb-4">
