@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Pending from "./Pending";
 import Navbar from "./Navbar";
-import validator from 'validator';
+// import validator from 'validator';
 
 const Signup = () => {
   const [step, setStep] = useState(1);
@@ -78,14 +78,14 @@ const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-     // Validate email using validator.js
-     if (!validator.isEmail(formData.email)) {
-      toast.error('Please enter a valid email address.', {
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 1000,
-      });
-      return;
-    }
+    //  // Validate email using validator.js
+    //  if (!validator.isEmail(formData.email)) {
+    //   toast.error('Please enter a valid email address.', {
+    //     position: toast.POSITION.TOP_RIGHT,
+    //     autoClose: 1000,
+    //   });
+    //   return;
+    // }
 
     if (step === steps.length && isStepTwoValid()) {
       // Perform API call or submit data as needed
@@ -93,8 +93,7 @@ const Signup = () => {
       // Mark both steps as completed
       completeStep(0);
       completeStep(1);
-      setShowModal(true);
-      // navigate("/pending");
+      setShowModal(true);      
     } else if (step < steps.length && isStepOneValid()) {
       // Move to the next step if the current step is valid
       handleNext();
@@ -206,8 +205,7 @@ const Signup = () => {
                   </label>
                   <input
                     className="w-full border border-gray-300 rounded-md py-2 px-3 "
-                    type="number"
-                    inputMode="numeric"
+                    type="number"                 
                     id="businessPhone"
                     name="businessPhone"
                     value={formData.businessPhone}
@@ -244,8 +242,7 @@ const Signup = () => {
                   </label>
                   <input
                     className="w-full border border-gray-300 rounded-md py-2 px-3"
-                    type="number"
-                    inputMode="numeric"
+                    type="number"                 
                     id="accountNo"
                     name="accountNo"
                     value={formData.accountNo}
@@ -391,8 +388,7 @@ const Signup = () => {
                   </label>
                   <input
                     className="w-full border border-gray-300 rounded-md py-2 px-3 "
-                    type="number"
-                    inputMode="numeric"
+                    type="number"                   
                     id="contactPhone"
                     name="contactPhone"
                     value={formData.contactPhone}
@@ -484,7 +480,7 @@ const Signup = () => {
                       type="button"
                       className="absolute right-3 top-3 text-gray-500"
                     >
-                      {formData.showPassword ? <FaEyeSlash /> : <FaEye />}
+                      {formData.showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
                     </button>
                   </div>
                 </div>
