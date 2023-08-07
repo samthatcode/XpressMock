@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Pending from "./Pending";
 import Navbar from "./Navbar";
-// import validator from 'validator';
+import validator from "validator";
 
 const Signup = () => {
   const [step, setStep] = useState(1);
@@ -77,15 +77,6 @@ const Signup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    //  // Validate email using validator.js
-    //  if (!validator.isEmail(formData.email)) {
-    //   toast.error('Please enter a valid email address.', {
-    //     position: toast.POSITION.TOP_RIGHT,
-    //     autoClose: 1000,
-    //   });
-    //   return;
-    // }
 
     if (step === steps.length && isStepTwoValid()) {
       // Perform API call or submit data as needed
@@ -93,7 +84,7 @@ const Signup = () => {
       // Mark both steps as completed
       completeStep(0);
       completeStep(1);
-      setShowModal(true);      
+      setShowModal(true);
     } else if (step < steps.length && isStepOneValid()) {
       // Move to the next step if the current step is valid
       handleNext();
@@ -148,6 +139,56 @@ const Signup = () => {
     );
   };
 
+  // Get all email input fields
+  const emailInputs = document.querySelectorAll('input[type="email"]');
+
+  // Add input event listener to each email input field
+  emailInputs.forEach((input) => {
+    const errorText = input.nextElementSibling; // Get the existing <span> element after the input field
+
+    input.addEventListener("input", (event) => {
+      const email = event.target.value; // Get the input value
+
+      if (!validator.isEmail(email)) {
+        // If the email is not valid, handle the error
+        toast.error("Please enter a valid email address.", {
+          position: "top-right",
+          autoClose: 500
+        });
+        // Update the error message text
+        errorText.textContent = "Invalid email address.";
+        // Change the input field's border color to red
+        event.target.style.borderColor = "red";
+      } else {
+        // If the email is valid, clear any previous error messages or UI changes
+        // console.log("Email is valid!");
+        // Reset the error message text
+        errorText.textContent = "";
+        // Reset the input field's border color
+        event.target.style.borderColor = "";
+      }
+    });
+  });
+
+  // Get all number input fields
+  const numberInputs = document.querySelectorAll('input[type="number"]');
+
+  // Add event listeners to number input fields
+  numberInputs.forEach((input) => {
+    input.addEventListener("keydown", (e) => {
+      // Allow only numbers, backspace, and delete key
+      if (
+        !(
+          (e.key >= "0" && e.key <= "9") ||
+          e.key === "Backspace" ||
+          e.key === "Delete"
+        )
+      ) {
+        e.preventDefault();
+      }
+    });
+  });
+
   return (
     <>
       <Navbar />
@@ -179,7 +220,7 @@ const Signup = () => {
                     onChange={handleFormChange}
                   />
                 </div>
-                <div className="mb-4">
+                <div className="mb-4 relative">
                   <label
                     className="block font-medium text-[#1A1619] text-[14px]"
                     htmlFor="businessEmail"
@@ -195,6 +236,7 @@ const Signup = () => {
                     onChange={handleFormChange}
                     required
                   />
+                  <span className="absolute top-full left-0 text-red-500 text-sm"></span>
                 </div>
                 <div className="mb-4">
                   <label
@@ -205,7 +247,7 @@ const Signup = () => {
                   </label>
                   <input
                     className="w-full border border-gray-300 rounded-md py-2 px-3 "
-                    type="number"                 
+                    type="number"
                     id="businessPhone"
                     name="businessPhone"
                     value={formData.businessPhone}
@@ -242,7 +284,7 @@ const Signup = () => {
                   </label>
                   <input
                     className="w-full border border-gray-300 rounded-md py-2 px-3"
-                    type="number"                 
+                    type="number"
                     id="accountNo"
                     name="accountNo"
                     value={formData.accountNo}
@@ -388,14 +430,14 @@ const Signup = () => {
                   </label>
                   <input
                     className="w-full border border-gray-300 rounded-md py-2 px-3 "
-                    type="number"                   
+                    type="number"
                     id="contactPhone"
                     name="contactPhone"
                     value={formData.contactPhone}
                     onChange={handleFormChange}
                   />
                 </div>
-                <div className="mb-4">
+                <div className="mb-4 relative">
                   <label
                     className="block font-medium text-[#1A1619] text-[14px]"
                     htmlFor="contactEmail"
@@ -411,6 +453,7 @@ const Signup = () => {
                     onChange={handleFormChange}
                     required
                   />
+                  <span className="absolute top-full left-0 text-red-500 text-sm"></span>
                 </div>
 
                 <h3 className="text-[#039BF0] mb-4">Password</h3>
@@ -455,10 +498,8 @@ const Signup = () => {
                       value={formData.confirmPassword}
                       onChange={(e) => {
                         handleFormChange(e);
-
                         // Clear old timeout if it exists
                         clearTimeout(timeoutId);
-
                         // Set new timeout
                         const newTimeoutId = setTimeout(() => {
                           if (e.target.value !== formData.password) {
@@ -469,7 +510,6 @@ const Signup = () => {
                             toast.success("Passwords match");
                           }
                         }, 1000); // One second delay
-
                         setTimeoutId(newTimeoutId);
                       }}
                     />
@@ -480,7 +520,11 @@ const Signup = () => {
                       type="button"
                       className="absolute right-3 top-3 text-gray-500"
                     >
-                      {formData.showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                      {formData.showConfirmPassword ? (
+                        <FaEyeSlash />
+                      ) : (
+                        <FaEye />
+                      )}
                     </button>
                   </div>
                 </div>
