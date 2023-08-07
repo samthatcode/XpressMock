@@ -60,6 +60,17 @@ const Signup = () => {
     setFileName(file.name);
   };
 
+  const handleDragOver = (event) => {
+    event.preventDefault();
+  };
+
+  const handleDrop = (event) => {
+    event.preventDefault();
+    const file = event.dataTransfer.files[0];
+    setFileName(file.name);
+    // Handle the file upload logic here
+  };
+
   const completeStep = (stepIndex) => {
     setStepCompletion((prevCompletion) => {
       const newCompletion = [...prevCompletion];
@@ -153,7 +164,7 @@ const Signup = () => {
         // If the email is not valid, handle the error
         toast.error("Please enter a valid email address.", {
           position: "top-right",
-          autoClose: 500
+          autoClose: 500,
         });
         // Update the error message text
         errorText.textContent = "Invalid email address.";
@@ -298,7 +309,11 @@ const Signup = () => {
                   >
                     Image[Logo]
                   </label>
-                  <div className="border-dotted border border-[#1A1619] rounded p-4 mt-2 flex items-center justify-center flex-col">
+                  <div
+                    onDragOver={handleDragOver}
+                    onDrop={handleDrop}
+                    className="border-dotted border border-[#1A1619] rounded p-4 mt-2 flex items-center justify-center flex-col"
+                  >
                     <AiOutlineCloudDownload className="text-[#039BF0] text-3xl" />
                     <p className="text-[#1A141F] text-[12px] mt-2 text-center">
                       Drag here or click the button below to upload
